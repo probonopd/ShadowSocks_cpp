@@ -4,10 +4,11 @@ sudo: require
 dist: trusty
 
 before_install:
+  - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get update -qq
 
 install:
-  - sudo apt-get -y install cmake pkg-config libgoogle-glog-dev libssl-dev libevent-dev libjsoncpp-dev
+  - sudo apt-get -y install g++-4.9 cmake pkg-config libgoogle-glog-dev libssl-dev libevent-dev libjsoncpp-dev
 
 script:
   - cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
