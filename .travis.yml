@@ -21,8 +21,20 @@ script:
   - chmod a+x linuxdeployqt-continuous-x86_64.AppImage
   - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
   - export VERSION=$(git rev-parse --short HEAD) # linuxdeployqt uses this for naming the file
-  - ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage
-
+  - ./linuxdeployqt-continuous-x86_64.AppImage appdir/usr/share/applications/*.desktop -appimage \
+  - -executable=libEventLoop.so \
+  - -executable=libSocketNode.so \
+  - -executable=libSocket.so \
+  - -executable=plugin/libPortTunnel.so \
+  - -executable=plugin/libSocketConnector.so \
+  - -executable=plugin/libSocksClient.so \
+  - -executable=plugin/libSocksServer.so \
+  - -executable=plugin/libSSRLocal.so \
+  - -executable=plugin/ \
+  - -executable=plugin/SSR/libAuthChain.so \
+  - -executable=plugin/SSR/libHTTPSimple.so \
+  - -executable=plugin/SSR/libTLSTicketAuth.so 
+    
 after_success:
   - find appdir -executable -type f -exec ldd {} \; | grep " => /usr" | cut -d " " -f 2-3 | sort | uniq
   - # curl --upload-file ShadowSocksr*.AppImage https://transfer.sh/ShadowSocksr-git.$(git rev-parse --short HEAD)-x86_64.AppImage
