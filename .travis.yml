@@ -13,10 +13,10 @@ install:
 script:
   - cmake . -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
   - make -j$(nproc)
-  - mkdir -p appdir/usr/bin/ ; cp ShadowSocksr appdir/usr/bin/
+  - mkdir -p appdir/usr/bin/ ; cp ../../bin/ShadowSocksr appdir/usr/bin/
   - mkdir -p appdir/usr/share/applications/ ; cp shadowsocksr.desktop appdir/usr/share/applications/
   - mkdir -p appdir/usr/share/icons/hicolor/scalable/apps/ ; touch appdir/usr/share/icons/hicolor/scalable/apps/ # FIXME 请把图标放在这里
-  - make DESTDIR=appdir -j$(nproc) install ; find appdir/
+  - find appdir/
   - wget -c -nv "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage"
   - chmod a+x linuxdeployqt-continuous-x86_64.AppImage
   - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
